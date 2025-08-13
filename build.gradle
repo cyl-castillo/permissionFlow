@@ -2,10 +2,9 @@ plugins {
     id 'com.android.library'
     id 'maven-publish'
 }
-
 android {
     namespace 'com.example.permissionflow'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         minSdk 23
@@ -21,12 +20,11 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core:1.12.0'
-
+    implementation 'androidx.core:core:1.16.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.10.3'
     testImplementation 'org.mockito:mockito-core:5.4.0'
-    testImplementation 'androidx.test:core:1.5.0'
+    testImplementation 'androidx.test:core:1.7.0'
 }
 
 publishing {
@@ -55,23 +53,8 @@ publishing {
         }
     }
     repositories {
-        mavenLocal()
-        maven {
-            name = "Internal"
-            url = uri("https://maven.mycompany.com/" + (version.endsWith("SNAPSHOT") ? "snapshots" : "releases"))
-            credentials {
-                username = findProperty("internalMavenUser") ?: System.getenv("INTERNAL_MAVEN_USER")
-                password = findProperty("internalMavenPassword") ?: System.getenv("INTERNAL_MAVEN_PASSWORD")
-            }
-        }
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/my-org/pocPermBus")
-            credentials {
-                username = findProperty("githubUser") ?: System.getenv("GITHUB_ACTOR")
-                password = findProperty("githubToken") ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
+        google()
+        mavenCentral()
     }
 }
 
